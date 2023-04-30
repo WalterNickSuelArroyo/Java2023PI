@@ -195,3 +195,288 @@ public class Calculos_conMath {
 	}
 }
 ```
+
+# 11. Manipulacion de cadenas - Clase String I
+
+![](imagenes/18.PNG)
+
+```java
+public class Manipula_Cadenas {
+	public static void main(String[] args) {
+		String nombre = "Juan";
+		System.out.println("Mi nombre es: " + nombre);
+		System.out.println("Mi nombre tiene: " + nombre.length() + " letras");
+		System.out.println("La primera letra de mi nombre es: " + nombre.charAt(0));
+		
+		int ultima_letra;
+		ultima_letra = nombre.length();
+		System.out.println("La ultima letra de mi nombre es: " + nombre.charAt(ultima_letra - 1));
+	}
+}
+```
+
+# 12. Manipulacion de cadenas - Clase String II
+
+```java
+public class Manipula_Cadenas_II {
+	public static void main(String[] args) {
+		String frase = "Hoy es un estupendo dia para aprender a programar en java";
+		//String frase_resumen = frase.substring(29, 57);
+		String frase_resumen = frase.substring(0, 28) + " irnos a la playa y olvidarnos de todo..." + " y " + frase.substring(29,57);
+		System.out.println(frase_resumen);
+	}
+}
+```
+
+```java
+public class Manipula_Cadenas_III {
+	public static void main(String[] args) {
+		String alumno1, alumno2;
+		alumno1 = "David";
+		alumno2 = "david";
+		System.out.println(alumno1.equals(alumno2));  //false
+		System.out.println(alumno1.equalsIgnoreCase(alumno2));	//true
+	}
+}
+```
+
+# 13. Acercamiento a la API Paquetes
+
+![](imagenes/19.PNG)
+
+![](imagenes/20.PNG)
+
+![](imagenes/21.PNG)
+
+```java
+//import java.util.*;
+import java.util.Scanner;
+//import java.util.Locale;
+public class prueba {
+	public static void main(String[] args) {
+		String nombre;
+		Scanner miObjeto;
+		//Locale miobjeto2;
+	}
+}
+```
+
+# 14. Entrada Salida datos I
+
+![](imagenes/22.PNG)
+
+![](imagenes/23.PNG)
+
+```java
+import java.util.*;
+public class Entrada_ejemplo1 {
+	public static void main(String[] args) {
+		Scanner entrada = new Scanner(System.in);
+		System.out.print("Introduce tu nombre: ");
+		String nombre = entrada.nextLine(); 		
+		System.out.print("Introduce tu edad: ");
+		int edad = entrada.nextInt(); 	
+		System.out.println("El nombre es: " + nombre);
+		System.out.println("La edad es: " + edad);
+	}
+}
+```
+
+# 15. Entrada Salida datos II
+
+```java
+import javax.swing.*;
+public class Entrada_ejemplo2 {
+	public static void main(String[] args) {
+		String nombre = JOptionPane.showInputDialog("Introduce tu nombre: ");
+		//String edad = ;
+		
+		//Convirtiendo a int un string
+		int edad = Integer.parseInt(JOptionPane.showInputDialog("Introduce tu edad: "));
+		System.out.println("Hola " + nombre + ", tu edad en un año es " + (edad + 1));
+	}
+}
+```
+
+```java
+import javax.swing.*;
+public class Entrada_Numeros {
+	public static void main(String[] arg) {
+		//double x = 1000.0;
+		//Dando formato, dandole dos decimales al resultado
+		//System.out.printf("%1.2f",x/3);
+		
+		String num1 = JOptionPane.showInputDialog("Introduce un numero");
+		double num2 = Double.parseDouble(num1);
+		System.out.print("La raiz de " + num2 + " es ");
+		System.out.printf("%1.2f",Math.sqrt(num2));
+	}
+}
+```
+
+# 16. Condicionales I
+
+![](imagenes/24.PNG)
+
+![](imagenes/25.PNG)
+
+```java
+import java.util.*;
+public class Evalua_Edad {
+	public static void main(String[] args) {
+		Scanner entrada = new Scanner(System.in);
+		System.out.print("Introduce tu edad: ");
+		int edad = entrada.nextInt();
+		
+		/*if (edad >= 18) {
+			System.out.println("Eres mayor de edad");
+		} else {
+			System.out.println("Eres menor de edad");
+		}*/
+		
+		if (edad < 18) {
+			System.out.println("Eres un adolescente");
+		} else if (edad < 40){
+			System.out.println("Eres un joven");
+		}else if (edad < 65) {
+			System.out.println("Eres maduro");
+		}else {
+			System.out.println("Cuidate");
+		}
+	}
+}
+```
+
+# 17. Condicionales II
+
+```java
+import java.util.*;
+import javax.swing.*;
+public class Areas {
+	public static void main(String[] args) {
+		Scanner entrada = new Scanner(System.in);
+		System.out.println("Elige una opcion: \n1: Cuadrado \n2. Rectangulo \n3. Triangulo \n4. Circulo");
+		int figura = entrada.nextInt();
+		switch (figura) {
+		case 1: {			
+			int lado = Integer.parseInt(JOptionPane.showInputDialog("Introduce el lado: ")) ;
+			System.out.println("El area del cuadrado es: " + Math.pow(lado, 2));
+			break;
+		}
+		case 2: {
+			int base = Integer.parseInt(JOptionPane.showInputDialog("Introduce la base: ")) ;
+			int altura = Integer.parseInt(JOptionPane.showInputDialog("Introduce la altura: ")) ;
+			System.out.println("El area del rectangulo es: " + base*altura);
+			break;
+		}case 3: {
+			int base = Integer.parseInt(JOptionPane.showInputDialog("Introduce la base: ")) ;
+			int altura = Integer.parseInt(JOptionPane.showInputDialog("Introduce la altura: ")) ;
+			System.out.println("El area del triangulo es: " + (base*altura)/2);
+			break;
+		}case 4: {
+			int radio = Integer.parseInt(JOptionPane.showInputDialog("Introduce el radio: ")) ;
+			System.out.print("El area del circulo es: ");
+			System.out.printf("%1.2f", + Math.PI*Math.pow(radio, 2));
+			break;
+		}
+		default:
+			System.out.println("Elija una opcion correcta");
+		}
+	}
+}
+```
+
+# 18. Java Bucles I
+
+![](imagenes/26.PNG)
+
+![](imagenes/27.PNG)
+
+```java
+import javax.swing.*;
+public class Acceso_aplicacion {
+	public static void main(String[] args) {
+		String clave = "Juan";
+		String pass="";		
+		while(clave.equals(pass)==false) {
+			pass = JOptionPane.showInputDialog("Digite la contraseña: ");
+			if (clave.equals(pass) == false) {
+				System.out.println("Contraseña incorrecta");	
+			}
+		}
+		System.out.println("Contraseña correcta. Bienvenido");
+	}
+}
+```
+
+# 19. Java Bucles II
+
+```java
+import java.util.*;
+public class Adivina_Numero {
+	public static void main(String[] args) {
+		int aleatorio = (int)(Math.random()*100);
+		Scanner entradaScanner = new Scanner(System.in);
+		int numero = 0;
+		int intentos = 0;
+		while (numero != aleatorio) {
+			intentos++;
+			System.out.print("Digite un numero: ");
+			numero = entradaScanner.nextInt();
+			if (numero > aleatorio) {
+				System.out.println("El numero a adivinar es menor");
+			}else if(numero < aleatorio){
+				System.out.println("El numero a adivinar es mayor");
+			}
+		}
+		System.out.println("Acertaste, el numero a adivinar es: " + aleatorio + " . Lo lograste en el intento N°" + intentos);
+	}
+}
+```
+
+# 20. Java Bucles III
+
+![](imagenes/28.PNG)
+
+```java
+import java.util.*;
+public class Adivina_Numero {
+	public static void main(String[] args) {
+		int aleatorio = (int)(Math.random()*100);
+		Scanner entrada = new Scanner(System.in);
+		int numero = 0;
+		int intentos = 0;
+		do{
+			intentos++;
+			System.out.print("Digite un numero: ");
+			numero = entrada.nextInt();
+			if (numero > aleatorio) {
+				System.out.println("El numero a adivinar es menor");
+			}else if(numero < aleatorio){
+				System.out.println("El numero a adivinar es mayor");
+			}
+		}while (numero != aleatorio); 
+		System.out.println("Acertaste, el numero a adivinar es: " + aleatorio + " . Lo lograste en el intento N°" + intentos);
+	}
+}
+```
+
+```java
+import javax.swing.*;
+public class Peso_ideal {
+	public static void main(String[] args) {
+		String genero = "";
+		do {
+			genero = JOptionPane.showInputDialog("Introduce tu genero (H/M)");
+		} while (genero.equalsIgnoreCase("H") == false && genero.equalsIgnoreCase("M") == false);
+		int altura = Integer.parseInt(JOptionPane.showInputDialog("Introduce altura en cm"));
+		int pesoideal = 0;
+		if (genero.equalsIgnoreCase("H")) {
+			pesoideal = altura - 110;
+		}else if(genero.equalsIgnoreCase("M")) {
+			pesoideal = altura - 120;
+		}
+		System.out.println("Tu peso ideal es: " + pesoideal + " kg");
+	}
+}
+```
