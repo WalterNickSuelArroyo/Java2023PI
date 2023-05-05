@@ -480,3 +480,457 @@ public class Peso_ideal {
 	}
 }
 ```
+
+# 21. Java Bucles IV
+
+![](imagenes/29.PNG)
+
+```java
+public class Uso_Bucle_For {
+	public static void main(String[] args) {
+		for (int i = 0; i < 10; i++) {
+			System.out.println("Nick");
+		}
+	}
+}
+```
+
+```java
+import javax.swing.JOptionPane;
+public class Comprueba_mail {
+	public static void main(String[] args) {
+		boolean arroba = false;
+		String mail = JOptionPane.showInputDialog("Introduce email");
+		for (int i = 0; i < mail.length(); i++) {
+			if (mail.charAt(i) == '@') {
+				arroba = true;
+			}
+		}
+		if (arroba == true) {
+			System.out.println("Email correcto");
+		} else {
+			System.out.println("No es correcto");
+		}
+	}
+}
+```
+
+# 22. Java Bucles V
+
+```java
+import javax.swing.JOptionPane;
+public class Comprueba_mail {
+	public static void main(String[] args) {
+		int arroba = 0;
+		boolean punto = false;
+		String mail = JOptionPane.showInputDialog("Introduce email");
+		for (int i = 0; i < mail.length(); i++) {
+			if (mail.charAt(i) == '@') {
+				arroba++;
+			}
+			if(mail.charAt(i) == '.') {
+				punto = true;
+			}
+		}
+		if (arroba == 1 && punto == true) {
+			System.out.println("Email correcto");
+		} else {
+			System.out.println("No es correcto");
+		}
+	}
+}
+```
+
+```java
+import javax.swing.*;
+public class Factorial {
+	public static void main(String[] args) {
+		int resultado = 1;
+		int numero = Integer.parseInt(JOptionPane.showInputDialog("Introduce un numero"));
+		for (int i = numero; i > 0; i--) {
+			resultado = resultado * i; 
+		}
+		System.out.println("El factorial de " + numero + " es " + resultado);
+	}
+}
+```
+
+# 23. Arrays I
+
+![](imagenes/30.PNG)
+
+![](imagenes/31.PNG)
+
+![](imagenes/32.PNG)
+
+```java
+public class Uso_Arrays {
+	public static void main(String[] args) {
+		int [] mi_matriz = new int[5];
+		//int mi_matriz[] = new int[5]
+		
+		mi_matriz[0] = 5;
+		mi_matriz[1] = 38;
+		mi_matriz[2] = -15;
+		mi_matriz[3] = 92;
+		mi_matriz[4] = 71;
+		
+		// int [] mi_matriz = {5, 38, -15, 92, 71}
+		//System.out.println(mi_matriz[3]);
+		
+		for (int i = 0; i < mi_matriz.length; i++) {
+			System.out.println("Valor del indice " + i + "=" + mi_matriz[i]);
+		}
+	}
+}
+```
+
+# 24. Arrays II
+
+```java
+public class Uso_Arrays_II {
+	public static void main(String[] args) {
+		/*String [] paises = new String[8];
+		paises[0] = "España";
+		paises[1] = "México";
+		paises[2] = "Colombia";
+		paises[3] = "Peru";
+		paises[4] = "Chile";
+		paises[5] = "Argentina";
+		paises[6] = "Ecuador";
+		paises[7] = "Venezuela";	
+		
+		for (int i = 0; i < paises.length; i++) {
+			System.out.println("Pais " + (i+1) + " " + paises[i]);
+		}
+		for (String elemento : paises) {
+			System.out.println("Pais: " + elemento);
+		}*/
+		
+				
+		/*
+		String [] paises = new String[8];
+		for (int i = 0; i < paises.length; i++) {
+			paises[i] = JOptionPane.showInputDialog("Introduce pais " + (i+1));
+		}
+		for (String elemento : paises) {
+			System.out.println("Pais: " + elemento);
+		}*/
+		
+			
+		int [] matriz_aleatorios = new int[150];
+		for (int i = 0; i < matriz_aleatorios.length; i++) {
+			matriz_aleatorios[i] = (int)Math.round(Math.random()*100);
+		}
+		for (int elemento : matriz_aleatorios) {
+			System.out.print(elemento + " ");
+		}
+	}
+}
+```
+
+# 25. Arrays III: Arrays bidimensionales
+
+![](imagenes/33.PNG)
+
+```java
+public class Arrays_bidimensionales {
+	public static void main(String[] args) {	
+		int [][] matrix = new int[4][5];
+		
+		matrix[0][0] = 1;
+		matrix[0][1] = 2;
+		matrix[0][2] = 3;
+		matrix[0][3] = 4;
+		matrix[0][4] = 5;
+
+		matrix[1][0] = 6;
+		matrix[1][1] = 7;
+		matrix[1][2] = 8;
+		matrix[1][3] = 9;
+		matrix[1][4] = 10;		
+		
+		matrix[2][0] = 11;
+		matrix[2][1] = 12;
+		matrix[2][2] = 13;
+		matrix[2][3] = 14;
+		matrix[2][4] = 15;
+
+		matrix[3][0] = 16;
+		matrix[3][1] = 17;
+		matrix[3][2] = 18;
+		matrix[3][3] = 19;
+		matrix[3][4] = 20;
+		
+		//System.out.println(matrix[2][3]);
+		
+		for (int i = 0; i < 4; i++) {
+			for (int j = 0; j < 5; j++) {
+				System.out.print(matrix[i][j] + " ");
+			}
+			System.out.println();
+		}
+	}
+}
+```
+
+# 26. Arrays IV: Arrays bidimensionales II
+
+```java
+public class Arrays_bidimensionales {
+	public static void main(String[] args) {	
+		int [][] matrix = {
+				{1,2,3,4,5},
+				{6,7,8,9,10},
+				{11,12,13,14,15},
+				{16,17,18,19,20}
+		};
+		for (int[] fila : matrix) {
+			System.out.println();
+			for (int z : fila) {
+				System.out.print(z + " ");
+			}
+		}
+	}
+}
+```
+
+```java
+public class Ejemplo_Array_2D {
+	public static void main(String[] args) {
+		double acumulado;
+		double interes = 0.10;
+		
+		double [][] saldo = new double[6][5];
+		
+		for (int i = 0; i < 6; i++) {
+			saldo[i][0] = 10000;
+			acumulado = 10000;
+			for (int j = 1; j < 5; j++) {
+				acumulado = acumulado + acumulado*interes;
+				saldo[i][j] = acumulado;
+			}
+			interes = interes + 0.01;
+		}
+		for (int i = 0; i < 6; i++) {
+			System.out.println();
+			for (int j = 0; j < 5; j++) {
+				System.out.printf("%1.2f",saldo[i][j]);
+				System.out.print(" ");
+			}
+		}
+	}
+}
+```
+
+# 27. POO I
+
+![](imagenes/34.PNG)
+
+![](imagenes/35.PNG)
+
+![](imagenes/36.PNG)
+
+![](imagenes/37.PNG)
+
+![](imagenes/38.PNG)
+
+# 28. POO II
+
+![](imagenes/39.PNG)
+
+![](imagenes/40.PNG)
+
+![](imagenes/41.PNG)
+
+![](imagenes/42.PNG)
+
+```java
+// Clase Coche.java
+package poo;
+public class Coche {
+	int ruedas;
+	int largo;
+	int ancho;
+	int motor;
+	int peso;
+	
+	public Coche() {
+		ruedas = 4;
+		largo = 2000;
+		ancho = 300;
+		motor = 1600;
+		peso = 500;
+	}
+}
+```
+
+```java
+// Clase Uso_Coche.java
+package poo;
+public class Uso_Coche {
+	public static void main(String[] args) {
+		Coche Renault = new Coche();
+		System.out.println("Este coche tiene " + Renault.ruedas + " ruedas");
+	}
+}
+```
+
+# 29. POO III
+
+**Modularizacion**
+
+- La modularización en programación se refiere a la práctica de dividir el código en partes más pequeñas y manejables llamadas "módulos". Cada módulo es responsable de realizar una tarea específica y se puede utilizar en diferentes partes del programa.
+
+- Imagina que tienes una caja de legos gigante y quieres construir una casa. Si intentas construir la casa con todas las piezas mezcladas en la caja, probablemente te tomará mucho tiempo y será difícil encontrar las piezas que necesitas. En cambio, si organizas las piezas en diferentes cajas según su forma y tamaño, será más fácil encontrar lo que necesitas y construir la casa.
+
+- En programación, es lo mismo. Si tu programa es muy grande y está todo mezclado, puede ser difícil entenderlo y hacer cambios en él. Por lo tanto, dividir el código en módulos hace que sea más fácil de entender, mantener y mejorar.
+
+- La modularización generalmente implica tener las clases en diferentes archivos. Cada archivo contendría una clase que se encarga de una funcionalidad específica del programa.
+
+- Por ejemplo, si estás construyendo un programa de gestión de una biblioteca, podrías tener una clase "Libro" en un archivo llamado "Libro.java" que se encarga de todo lo relacionado con la información de los libros (título, autor, editorial, etc.). Luego, podrías tener otra clase llamada "Lector" en un archivo "Lector.java" que se encarga de la información de los lectores (nombre, dirección, etc.). De esta manera, cada archivo contendría una clase con una responsabilidad específica.
+
+- En Java, cuando tienes varias clases en un mismo archivo .java, solo una de ellas puede tener el modificador de acceso "public". La clase que tenga este modificador debe tener el mismo nombre que el archivo, mientras que las demás clases pueden tener cualquier otro nombre, pero sin el modificador "public".
+
+```java
+public class Libro {
+    // definición de la clase Libro
+}
+
+class Lector {
+    // definición de la clase Lector
+}
+
+class Prestamo {
+    // definición de la clase Prestamo
+}
+```
+
+En este caso, la clase "Libro" es la única que puede ser accedida desde fuera del archivo "Biblioteca.java", ya que es la única que tiene el modificador "public". Las demás clases solo pueden ser accedidas desde dentro del mismo archivo.
+
+**Encapsulamiento**
+
+- El encapsulamiento en Java es un concepto muy importante en la Programación Orientada a Objetos que nos permite proteger la información que está dentro de nuestras clases.
+
+- Imagínate que tienes una caja con juguetes dentro. Puedes jugar con los juguetes y cambiarlos de posición como quieras, pero no puedes abrir la caja para ver cómo están organizados los juguetes o agregar o quitar juguetes sin abrir la caja. Esto es similar a cómo funciona el encapsulamiento en Java.
+
+- En Java, una clase es como una caja que puede tener diferentes variables y métodos. Las variables son como los juguetes que están dentro de la caja, mientras que los métodos son como las acciones que puedes realizar con los juguetes, como jugar con ellos o moverlos de un lugar a otro.
+
+- El encapsulamiento nos permite proteger las variables de una clase para que no sean modificadas o accedidas desde fuera de la misma. Esto se hace definiendo las variables como "privadas". Así, solo los métodos que están dentro de la misma clase pueden acceder y modificar las variables privadas.
+
+- Por ejemplo, si tienes una clase "Coche" que tiene una variable privada "kilometraje", podrías tener un método público "getKilometraje()" que devuelve el valor de la variable y un método privado "setKilometraje()" que permite modificar el valor de la variable. De esta forma, solo los métodos dentro de la clase "Coche" pueden acceder y modificar la variable "kilometraje", mientras que el resto del programa solo puede obtener el valor a través del método "getKilometraje()".
+
+```java
+public class Coche {
+    private int kilometraje; // la variable kilometraje es privada
+
+    public Coche() {
+        this.kilometraje = 0;
+    }
+
+    public int getKilometraje() { // método público para obtener el kilometraje
+        return this.kilometraje;
+    }
+
+    private void setKilometraje(int nuevoKilometraje) { // método privado para modificar el kilometraje
+        this.kilometraje = nuevoKilometraje;
+    }
+
+    public void conducir(int kilometros) { // método público para conducir el coche
+        int nuevoKilometraje = this.kilometraje + kilometros;
+        this.setKilometraje(nuevoKilometraje); // solo los métodos dentro de la misma clase pueden acceder a este método privado
+        System.out.println("Conduciendo " + kilometros + " km. Kilometraje actual: " + this.getKilometraje());
+    }
+}
+```
+
+# 30. POO IV: Getters y Setters
+
+![](imagenes/43.PNG)
+
+![](imagenes/44.PNG)
+
+**Primer ejemplo**
+```java
+package poo;
+public class Coche {
+	private int ruedas;
+	private int largo;
+	private int ancho;
+	private int motor;
+	private int peso;
+	
+	public Coche() {
+		ruedas = 4;
+		largo = 2000;
+		ancho = 300;
+		motor = 1600;
+		peso = 500;
+	}
+	
+	public String dime_largo() {
+		return "El largo del coche es " + largo;
+	}
+}
+```
+```java
+package poo;
+public class Uso_Coche {
+	public static void main(String[] args) {
+		
+		Coche Renault = new Coche();
+		
+		//Renault.ruedas = 3;
+		//System.out.println("Este coche tiene " + Renault.ruedas + " ruedas");
+		
+		System.out.println(Renault.dime_largo());	
+	}
+}
+```
+
+![](imagenes/45.PNG)
+
+**Segundo ejemplo**
+```java
+package poo;
+public class Coche {
+	private int ruedas;
+	private int largo;
+	private int ancho;
+	private int motor;
+	private int peso_plataforma;
+	String color;
+	int peso_total;
+	boolean asientos_cuero, climatizador;
+	
+	public Coche() {
+		ruedas = 4;
+		largo = 2000;
+		ancho = 300;
+		motor = 1600;
+		peso_plataforma = 500;
+	}
+	
+	public String dime_largo() {	//GETTER
+		return "El largo del coche es " + largo;
+	}
+	public void establece_color() {	//SETTER
+		color = "azul";
+	}
+	public String dime_color() {
+		return "El color del coche es " + color ;
+	}
+}
+```
+
+```java
+package poo;
+public class Uso_Coche {
+	public static void main(String[] args) {
+		
+		Coche micoche = new Coche();
+		micoche.establece_color();
+		System.out.println(micoche.dime_color());
+	}
+}
+```

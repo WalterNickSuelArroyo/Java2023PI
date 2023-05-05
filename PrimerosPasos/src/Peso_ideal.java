@@ -12,6 +12,6 @@ public class Peso_ideal {
 		}else if(genero.equalsIgnoreCase("M")) {
 			pesoideal = altura - 120;
 		}
-		System.out.println("Tu peso ideal es: " + pesoideal + "kg");
+		System.out.println("Tu peso ideal es: " + pesoideal + " kg");
 	}
 }
