@@ -934,3 +934,531 @@ public class Uso_Coche {
 	}
 }
 ```
+
+# 31. POO V: Paso de parametros
+
+```java
+package poo;
+public class Coche {
+	private int ruedas;
+	private int largo;
+	private int ancho;
+	private int motor;
+	private int peso_plataforma;
+	private String color;
+	private int peso_total;
+	private boolean asientos_cuero, climatizador;
+	
+	public Coche() {
+		ruedas = 4;
+		largo = 2000;
+		ancho = 300;
+		motor = 1600;
+		peso_plataforma = 500;
+	}	
+	public String dime_datos_generales() {	//GETTER
+		return "La plataforma del vehiculo tiene " + ruedas + " ruedas. " + 
+		"Mide " + largo/100 + " metros con un ancho de " + ancho + " cm y un peso de plataforma de "
+		+ peso_plataforma + " kg";
+	}
+	public void establece_color(String color_coche) {	//SETTER
+		color = color_coche;
+	}
+	public String dime_color() {
+		return "El color del coche es " + color ;
+	}
+	public void configura_asientos(String asientos_cuero) {	//SETTER
+		if (asientos_cuero == "si") {
+			this.asientos_cuero = true;
+		} else {
+			this.asientos_cuero = false;
+		}
+	}
+	public String dime_asientos() {	//GETTER
+		if (asientos_cuero == true) {
+			return "El coche tiene asientos de cuero";
+		} else {
+			return "El coche tiene asientos de serie";
+		}
+	}
+}
+```
+
+```java
+package poo;
+public class Uso_Coche {
+	public static void main(String[] args) {	
+		Coche micoche = new Coche();
+		micoche.establece_color("Rosado");
+		System.out.println(micoche.dime_datos_generales());	
+		System.out.println(micoche.dime_color());
+		micoche.configura_asientos("no");
+		System.out.println(micoche.dime_asientos());
+	}
+}
+```
+
+# 32. POO VI: Construccion objetos
+
+```java
+package poo;
+public class Coche {
+	private int ruedas;
+	private int largo;
+	private int ancho;
+	private int motor;
+	private int peso_plataforma;
+	private String color;
+	private int peso_total;
+	private boolean asientos_cuero, climatizador;
+	
+	public Coche() {
+		ruedas = 4;
+		largo = 2000;
+		ancho = 300;
+		motor = 1600;
+		peso_plataforma = 500;
+	}	
+	public String dime_datos_generales() {	//GETTER
+		return "La plataforma del vehiculo tiene " + ruedas + " ruedas. " + 
+		"Mide " + largo/100 + " metros con un ancho de " + ancho + " cm y un peso de plataforma de "
+		+ peso_plataforma + " kg";
+	}
+	public void establece_color(String color_coche) {	//SETTER
+		color = color_coche;
+	}
+	public String dime_color() {
+		return "El color del coche es " + color ;
+	}
+	public void configura_asientos(String asientos_cuero) {	//SETTER
+		if (asientos_cuero.equalsIgnoreCase("si")) {
+			this.asientos_cuero = true;
+		} else {
+			this.asientos_cuero = false;
+		}
+	}
+	public String dime_asientos() {	//GETTER
+		if (asientos_cuero == true) {
+			return "El coche tiene asientos de cuero";
+		} else {
+			return "El coche tiene asientos de serie";
+		}
+	}
+	public void configura_climatizador(String climatizador) {	//SETTER
+		if (climatizador.equalsIgnoreCase("si")) {
+			this.climatizador = true;
+		} else {
+			this.climatizador = false;
+		}
+	}
+	public String dime_climatizador() {	//GETTER
+		if (climatizador == true) {
+			return "El coche incorpora climatizador";
+		} else {
+			return "El coche lleva aire acondicionado";
+		}
+	}
+	public String dime_peso_coche() {	//SETTER + GETTER
+		int peso_carroceria = 500;
+		peso_total = peso_plataforma + peso_carroceria;
+		if (asientos_cuero == true) {
+			peso_total = peso_total + 50;
+		}
+		if (climatizador == true) {
+			peso_total = peso_total + 20;
+		}
+		return "El peso del coche es " + peso_total;
+	}
+	public int precio_coche() {	//GETTER
+		int precio_final = 10000;
+		if (asientos_cuero == true) {
+			precio_final += 2000;
+		}
+		if (climatizador == true) {
+			precio_final += 1500;
+		}
+		return precio_final;
+	}
+}
+```
+
+```java
+package poo;
+import javax.swing.*;
+public class Uso_Coche {
+	public static void main(String[] args) {	
+		Coche micoche = new Coche();
+		micoche.establece_color(JOptionPane.showInputDialog("Introduce color"));
+		System.out.println(micoche.dime_datos_generales());	
+		System.out.println(micoche.dime_color());
+		micoche.configura_asientos(JOptionPane.showInputDialog("¿Tiene asientos de cuero?"));
+		System.out.println(micoche.dime_asientos());
+		micoche.configura_climatizador(JOptionPane.showInputDialog("¿Tiene climatizador?"));
+		System.out.println(micoche.dime_climatizador());
+		System.out.println(micoche.dime_peso_coche());
+		System.out.println("El precio final del coche es: " + micoche.precio_coche());
+	}
+}
+```
+
+# 33. POO VII: Construccion objetos II
+
+![](imagenes/46.PNG)
+
+```java
+package poo;
+import java.util.Date;
+public class Uso_Empleado {
+	public static void main(String[] args) {
+
+	}
+}
+class Empleado {
+	public Empleado(String nom, double sue, int agno, int mes, int dia) {
+		
+	}
+	private String nombre;
+	private double sueldo;
+	private Date altaContrato;
+}
+```
+
+# 34. POO VIII: Construccion objetos III
+
+```java
+package poo;
+import java.util.Date;
+import java.util.GregorianCalendar;
+public class Uso_Empleado {
+	public static void main(String[] args) {
+
+	}
+}
+class Empleado {
+	public Empleado(String nom, double sue, int agno, int mes, int dia) {
+		nombre = nom;
+		sueldo = sue;
+		GregorianCalendar calendario = new GregorianCalendar(agno,mes-1,dia);
+		altaContrato = calendario.getTime();		
+	}
+	public String dameNombre() {	//GETTER
+		return nombre;
+	}
+	public double dameSueldo() {	//GETTER
+		return sueldo;
+	}
+	public Date dameFechaContrato() {	//GETTER
+		return altaContrato;
+	}
+	public void subeSueldo(double porcentaje) {	//SETTER
+		double aumento = sueldo*porcentaje/100;
+		sueldo += aumento;
+	}
+	private String nombre;
+	private double sueldo;
+	private Date altaContrato;
+}
+```
+
+# 35. POO IX: Construccion objetos IV
+
+```java
+package poo;
+import java.util.Date;
+import java.util.GregorianCalendar;
+public class Uso_Empleado {
+	public static void main(String[] args) {
+		/*Empleado empleado1 = new Empleado("Paco Gomez", 85000, 1990, 12, 17);
+		Empleado empleado2 = new Empleado("Ana Lopez", 95000, 1995, 06, 02);
+		Empleado empleado3 = new Empleado("Maria Martin", 105000, 2002, 03, 15);
+		
+		empleado1.subeSueldo(5);
+		empleado2.subeSueldo(5);
+		empleado3.subeSueldo(5);
+		
+		System.out.println("Nombre: " + empleado1.dameNombre() + " Sueldo: " + empleado1.dameSueldo() 
+		+ " Fecha de alta: " + empleado1.dameFechaContrato());
+		
+		System.out.println("Nombre: " + empleado2.dameNombre() + " Sueldo: " + empleado2.dameSueldo() 
+		+ " Fecha de alta: " + empleado2.dameFechaContrato());
+		
+		System.out.println("Nombre: " + empleado3.dameNombre() + " Sueldo: " + empleado3.dameSueldo() 
+		+ " Fecha de alta: " + empleado3.dameFechaContrato());*/
+		
+		Empleado[] misemEmpleados = new Empleado[3];
+		misemEmpleados[0] = new Empleado("Paco Gomez", 85000, 1990, 12, 17);
+		misemEmpleados[1] = new Empleado("Ana Lopez", 95000, 1995, 06, 02);
+		misemEmpleados[2] = new Empleado("Maria Martin", 105000, 2002, 03, 15);
+		
+		/*for (int i = 0; i < 3; i++) {
+			misemEmpleados[i].subeSueldo(5);
+		}
+		for (int i = 0; i < 3; i++) {
+			System.out.println("Nombre: " + misemEmpleados[i].dameNombre() + " Sueldo: " 
+					+ misemEmpleados[i].dameSueldo() + " Fecha de alta: " + misemEmpleados[i].dameFechaContrato());
+		}*/
+		for (Empleado e : misemEmpleados) {
+			e.subeSueldo(5);
+		}
+		for (Empleado e : misemEmpleados) {
+			System.out.println("Nombre: " + e.dameNombre() + " Sueldo: " 
+					+ e.dameSueldo() + " Fecha de alta: " + e.dameFechaContrato());
+		}
+	}
+}
+class Empleado {
+	public Empleado(String nom, double sue, int agno, int mes, int dia) {
+		nombre = nom;
+		sueldo = sue;
+		GregorianCalendar calendario = new GregorianCalendar(agno,mes-1,dia);
+		altaContrato = calendario.getTime();		
+	}
+	public String dameNombre() {	//GETTER
+		return nombre;
+	}
+	public double dameSueldo() {	//GETTER
+		return sueldo;
+	}
+	public Date dameFechaContrato() {	//GETTER
+		return altaContrato;
+	}
+	public void subeSueldo(double porcentaje) {	//SETTER
+		double aumento = sueldo*porcentaje/100;
+		sueldo += aumento;
+	}
+	private String nombre;
+	private double sueldo;
+	private Date altaContrato;
+}
+```
+
+# 36. Constantes: Uso final
+
+```java
+package poo;
+public class Pruebas {
+	public static void main(String[] args) {
+		Empleados trabajador1 = new Empleados("Paco");
+		Empleados trabajador2 = new Empleados("Ana");
+		
+		trabajador1.cambiarSeccion("RRHH");
+		
+		System.out.println(trabajador1.devuelveDatos());
+		System.out.println(trabajador2.devuelveDatos());
+	}
+}
+class Empleados {
+	public Empleados(String nom) {
+		nombre = nom;
+		seccion = "Administracion";
+	}
+	public void cambiarSeccion(String seccion) {	//SETTER
+		this.seccion = seccion;
+	}
+	public String devuelveDatos() {	//GETTER
+		return "El nombre es: " + nombre + " y la seccion es: " + seccion;
+	}
+	private final String nombre;
+	private String seccion;
+}
+```
+
+# 37. Uso static
+
+![](imagenes/47.PNG)
+
+```java
+package poo;
+public class Pruebas {
+	public static void main(String[] args) {
+		Empleados trabajador1 = new Empleados("Paco");
+		Empleados trabajador2 = new Empleados("Ana");
+		
+		trabajador1.cambiarSeccion("RRHH");
+		
+		System.out.println(trabajador1.devuelveDatos());
+		System.out.println(trabajador2.devuelveDatos());
+	}
+}
+class Empleados {
+	public Empleados(String nom) {
+		nombre = nom;
+		seccion = "Administracion";
+		id = IdSiguiente;
+		IdSiguiente++;
+	}
+	public void cambiarSeccion(String seccion) {	//SETTER
+		this.seccion = seccion;
+	}
+	public String devuelveDatos() {	//GETTER
+		return "El nombre es: " + nombre + " la seccion es: " + seccion + " y el Id = " + id;
+	}
+	private final String nombre;
+	private String seccion;
+	private int id;
+	private static int IdSiguiente = 1;
+}
+```
+
+# 38. Metodo static
+
+```java
+package poo;
+public class Pruebas {
+	public static void main(String[] args) {
+		Empleados trabajador1 = new Empleados("Paco");
+		Empleados trabajador2 = new Empleados("Ana");
+		
+		trabajador1.cambiarSeccion("RRHH");
+		
+		System.out.println(trabajador1.devuelveDatos());
+		System.out.println(trabajador2.devuelveDatos());
+		System.out.println(Empleados.dameIdSiguiente());
+		
+	}
+}
+class Empleados {
+	public Empleados(String nom) {
+		nombre = nom;
+		seccion = "Administracion";
+		id = IdSiguiente;
+		IdSiguiente++;
+	}
+	public void cambiarSeccion(String seccion) {	//SETTER
+		this.seccion = seccion;
+	}
+	public String devuelveDatos() {	//GETTER
+		return "El nombre es: " + nombre + " la seccion es: " + seccion + " y el Id = " + id;
+	}
+	public static String dameIdSiguiente() {
+		return "El IdSiguiente es: " + IdSiguiente;
+	}
+	private final String nombre;
+	private String seccion;
+	private int id;
+	private static int IdSiguiente = 1;
+}
+```
+![](imagenes/48.PNG)
+
+# 39. Sobrecarga de constructores
+
+```java
+package poo;
+import java.util.Date;
+import java.util.GregorianCalendar;
+public class Uso_Empleado {
+	public static void main(String[] args) {
+		Empleado[] misemEmpleados = new Empleado[4];
+		misemEmpleados[0] = new Empleado("Paco Gomez", 85000, 1990, 12, 17);
+		misemEmpleados[1] = new Empleado("Ana Lopez", 95000, 1995, 06, 02);
+		misemEmpleados[2] = new Empleado("Maria Martin", 105000, 2002, 03, 15);
+		misemEmpleados[3] = new Empleado("Antonio Fernandéz");
+
+		for (Empleado e : misemEmpleados) {
+			e.subeSueldo(5);
+		}
+		for (Empleado e : misemEmpleados) {
+			System.out.println("Nombre: " + e.dameNombre() + " Sueldo: " 
+					+ e.dameSueldo() + " Fecha de alta: " + e.dameFechaContrato());
+		}
+	}
+}
+class Empleado {
+	public Empleado(String nom, double sue, int agno, int mes, int dia) {
+		nombre = nom;
+		sueldo = sue;
+		GregorianCalendar calendario = new GregorianCalendar(agno,mes-1,dia);
+		altaContrato = calendario.getTime();		
+	}
+	public Empleado(String nom) {
+		this(nom,30000,2000,01,01);
+	}
+	public String dameNombre() {	//GETTER
+		return nombre;
+	}
+	public double dameSueldo() {	//GETTER
+		return sueldo;
+	}
+	public Date dameFechaContrato() {	//GETTER
+		return altaContrato;
+	}
+	public void subeSueldo(double porcentaje) {	//SETTER
+		double aumento = sueldo*porcentaje/100;
+		sueldo += aumento;
+	}
+	private String nombre;
+	private double sueldo;
+	private Date altaContrato;
+}
+```
+
+# 40. Herencia I
+
+![](imagenes/49.PNG)
+
+![](imagenes/50.PNG)
+
+```java
+package poo;
+
+public class Furgoneta extends Coche {
+	private int capacidad_carga;
+	private int plazas_extra;
+	
+	public Furgoneta(int plazas_extra, int capacidad_carga) {
+		super();	//llamar al constructor de la clase padre
+		this.capacidad_carga = capacidad_carga;
+		this.plazas_extra = plazas_extra;
+	}
+}
+```
+
+# 41. Herencia II
+
+```java
+
+```
+
+# 42. Herencia III
+
+```java
+```
+
+# 43. Polimorfismo y enlace dinamico
+
+```java
+
+```
+
+# 44. Casting de objetis. Clases y metodos final
+
+```java
+```
+
+# 45. Clases Abstractas I
+
+```java
+
+```
+
+# 46. Clases Abstractas II
+
+```java
+
+```
+
+# 47. Modificadores de acceso. Clase Object
+
+```java
+
+```
+
+# 48. Tipos enumerados
+
+```java
+```
+
+
+
+
