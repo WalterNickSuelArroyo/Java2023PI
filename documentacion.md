@@ -1416,47 +1416,548 @@ public class Furgoneta extends Coche {
 
 # 41. Herencia II
 
-```java
+![](imagenes/51.PNG)
 
+![](imagenes/52.PNG)
+
+```java
+package poo;
+
+public class Furgoneta extends Coche {
+	private int capacidad_carga;
+	private int plazas_extra;
+	
+	public Furgoneta(int plazas_extra, int capacidad_carga) {
+		super();	//llamar al constructor de la clase padre
+		this.capacidad_carga = capacidad_carga;
+		this.plazas_extra = plazas_extra;
+	}
+	public String dimeDatosFurgoneta() {
+		return "La capacidad de carga es: " + capacidad_carga + " .Y las plazas son: " + plazas_extra;
+	}
+}
+```
+
+```java
+package poo;
+public class Uso_Vehiculo {
+	public static void main(String[] args) {	
+		Coche micoche1 = new Coche();
+		micoche1.establece_color("Azul");
+		Furgoneta mifurgoneta1 = new Furgoneta(7, 580);
+		mifurgoneta1.establece_color("Rojo");
+		mifurgoneta1.configura_asientos("Si");
+		mifurgoneta1.configura_climatizador("Si");
+		
+		System.out.println(micoche1.dime_datos_generales() + " " +  micoche1.dime_color());
+		System.out.println(mifurgoneta1.dime_datos_generales() + " " + mifurgoneta1.dimeDatosFurgoneta());
+	}
+}
 ```
 
 # 42. Herencia III
 
+![](imagenes/53.PNG)
+
+![](imagenes/54.PNG)
+
 ```java
+class Jefatura extends Empleado {
+	public Jefatura(String nom, double sue, int agno, int mes, int dia) {
+		super(nom, sue, agno, mes, dia);
+	}
+	public void estableceIncentivo(double b) {
+		incentivo = b;
+	}
+	public double dameSueldo() {
+		double sueldoJefe = super.dameSueldo();
+		return sueldoJefe + incentivo;
+	}
+	private double incentivo;
+}
 ```
 
 # 43. Polimorfismo y enlace dinamico
 
-```java
+![](imagenes/55.PNG)
 
+```java
+package poo;
+import java.util.Date;
+import java.util.GregorianCalendar;
+public class Uso_Empleado {
+	public static void main(String[] args) {
+		Jefatura jefe_RRHH = new Jefatura("Juan", 55000, 2006, 9, 25);
+		jefe_RRHH.estableceIncentivo(2570);
+		Empleado[] misemEmpleados = new Empleado[6];
+		misemEmpleados[0] = new Empleado("Paco Gomez", 85000, 1990, 12, 17);
+		misemEmpleados[1] = new Empleado("Ana Lopez", 95000, 1995, 06, 02);
+		misemEmpleados[2] = new Empleado("Maria Martin", 105000, 2002, 03, 15);
+		misemEmpleados[3] = new Empleado("Antonio Fernandéz");
+		misemEmpleados[4] = jefe_RRHH;	//Polimorfismo en accion. Principio de sustitucion
+		misemEmpleados[5] = new Jefatura("Maria", 95000, 1999, 5, 26);
+
+		for (Empleado e : misemEmpleados) {
+			e.subeSueldo(5);
+		}
+		for (Empleado e : misemEmpleados) {
+			System.out.println("Nombre: " + e.dameNombre() + " Sueldo: " 
+					+ e.dameSueldo() + " Fecha de alta: " + e.dameFechaContrato());
+		}
+	}
+}
+class Empleado {
+	public Empleado(String nom, double sue, int agno, int mes, int dia) {
+		nombre = nom;
+		sueldo = sue;
+		GregorianCalendar calendario = new GregorianCalendar(agno,mes-1,dia);
+		altaContrato = calendario.getTime();	
+		++IdSiguiente;
+		Id = IdSiguiente;
+	}
+	public Empleado(String nom) {
+		this(nom,30000,2000,01,01);
+	}
+	public String dameNombre() {	//GETTER
+		return nombre + " Id: " + Id;
+	}
+	public double dameSueldo() {	//GETTER
+		return sueldo;
+	}
+	public Date dameFechaContrato() {	//GETTER
+		return altaContrato;
+	}
+	public void subeSueldo(double porcentaje) {	//SETTER
+		double aumento = sueldo*porcentaje/100;
+		sueldo += aumento;
+	}
+	private String nombre;
+	private double sueldo;
+	private Date altaContrato;
+	private static int IdSiguiente;
+	private int Id;
+}
+class Jefatura extends Empleado {
+	public Jefatura(String nom, double sue, int agno, int mes, int dia) {
+		super(nom, sue, agno, mes, dia);
+	}
+	public void estableceIncentivo(double b) {
+		incentivo = b;
+	}
+	public double dameSueldo() {
+		double sueldoJefe = super.dameSueldo();
+		return sueldoJefe + incentivo;
+	}
+	private double incentivo;
+}
 ```
 
-# 44. Casting de objetis. Clases y metodos final
+# 44. Casting de objetos. Clases y metodos final
+
+![](imagenes/56.PNG)
 
 ```java
+class Jefatura extends Empleado { 	//Con final le decimos que otra clase no puede heredar de ella
+}
+class Director extends Jefatura {
+	public Director(String nom, double sue, int agno, int mes, int dia) {
+		super(nom, sue, agno, mes, dia);
+	}
+}
 ```
 
 # 45. Clases Abstractas I
 
-```java
+![](imagenes/57.PNG)
 
-```
 
 # 46. Clases Abstractas II
 
 ```java
+package poo;
 
+import java.util.Date;
+import java.util.GregorianCalendar;
+
+public class Uso_Persona {
+
+	public static void main(String[] args) {
+		Persona[] lasPersonas = new Persona[2];
+		lasPersonas[0] = new Empleado2("Luis Conde", 50000, 2009, 02, 25);
+		lasPersonas[1] = new Alumno("Ana Lopez", "Biologicas");
+		
+		for(Persona p : lasPersonas) {
+			System.out.println(p.dameNombre() + ", " + p.dameDescripcion());
+		}
+
+	}
+
+}
+abstract class Persona {
+	public Persona(String nom) {
+		nombre = nom;
+	}
+	public String dameNombre() {
+		return nombre;
+	}
+	public abstract String dameDescripcion();
+	private String nombre;
+}
+
+
+class Empleado2 extends Persona {
+	public Empleado2(String nom, double sue, int agno, int mes, int dia) {
+		super(nom);
+		sueldo = sue;
+		GregorianCalendar calendario = new GregorianCalendar(agno,mes-1,dia);
+		altaContrato = calendario.getTime();	
+		++IdSiguiente;
+		Id = IdSiguiente;
+	}
+	public String dameDescripcion() {
+		return "Este empleado tiene un Id= " + Id + " con un sueldo= " + sueldo;
+	}
+	public double dameSueldo() {	//GETTER
+		return sueldo;
+	}
+	public Date dameFechaContrato() {	//GETTER
+		return altaContrato;
+	}
+	public void subeSueldo(double porcentaje) {	//SETTER
+		double aumento = sueldo*porcentaje/100;
+		sueldo += aumento;
+	}
+	private double sueldo;
+	private Date altaContrato;
+	private static int IdSiguiente;
+	private int Id;
+}
+class Alumno extends Persona {
+	public Alumno(String nom, String car) {
+		super(nom);
+		carrera = car;
+	}
+	public String dameDescripcion() {
+		return "Este alumno esta estudiando la carrera de " + carrera;	
+	}
+	private String carrera;
+	
+}
 ```
 
 # 47. Modificadores de acceso. Clase Object
 
-```java
+![](imagenes/58.PNG)
 
+```java
+package poo;
+
+public class Clase1 {
+	protected int mivar = 5;
+	protected int mivar2 = 7;
+	protected String mimetodo() {
+		return "El valor de mivar2 es: " + mivar2;
+	}
+}
+```
+
+```java
+package poo;
+import paquetepruebas.Clase3;
+
+public class Clase2 {
+
+	public static void main(String[] args) {
+		Clase1 miobj = new Clase1();
+		Clase3 miobj2 = new Clase3();
+	}
+
+}
+```
+
+```java
+package paquetepruebas;
+
+import poo.Clase1;
+
+public class Clase3 extends Clase1 {
+
+}
 ```
 
 # 48. Tipos enumerados
 
 ```java
+import java.util.*;
+public class Uso_Tallas {
+	/*enum Talla {MINI, MEDIANO, GRANDE, MUY_GRANDE};*/
+	
+	/*Talla s = Talla.MINI;
+	Talla m = Talla.MEDIANO;
+	Talla l = Talla.GRANDE;
+	Talla xl = Talla.MUY_GRANDE;*/
+	
+	enum Talla {
+		MINI("S"), MEDIANO("M"), GRANDE("L"), MUY_GRANDE("XL");
+		private Talla(String abreviatura) {
+			this.abreviatura = abreviatura;
+		}
+		public String dameAbreviatura() {
+			return abreviatura;
+		}
+		private String abreviatura;
+	}
+	public static void main(String[] arg) {
+		Scanner entrada = new Scanner(System.in);
+		System.out.println("Escribe una talla: MINI, MEDIANO, GRANDE, MUY_GRANDE");
+		String entrada_datos = entrada.next().toUpperCase();
+		Talla la_talla = Enum.valueOf(Talla.class, entrada_datos);
+		System.out.println("Talla= " + la_talla);
+		System.out.println("Abreviatura= " + la_talla.dameAbreviatura());
+	}
+}
+```
+
+# 49. Interfaces y clases internas. Interfaces I
+
+![](imagenes/59.PNG)
+
+![](imagenes/60.PNG)
+
+![](imagenes/61.PNG)
+
+```java
+package poo;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.GregorianCalendar;
+public class Uso_Empleado {
+	public static void main(String[] args) {
+		Jefatura jefe_RRHH = new Jefatura("Juan", 55000, 2006, 9, 25);
+		jefe_RRHH.estableceIncentivo(2570);
+		Empleado[] misemEmpleados = new Empleado[6];
+		misemEmpleados[0] = new Empleado("Paco Gomez", 85000, 1990, 12, 17);
+		misemEmpleados[1] = new Empleado("Ana Lopez", 95000, 1995, 06, 02);
+		misemEmpleados[2] = new Empleado("Maria Martin", 105000, 2002, 03, 15);
+		misemEmpleados[3] = new Empleado("Antonio Fernandéz");
+		misemEmpleados[4] = jefe_RRHH;	//Polimorfismo en accion. Principio de sustitucion
+		misemEmpleados[5] = new Jefatura("Maria", 95000, 1999, 5, 26);
+		Jefatura jefa_Finanzas = (Jefatura) misemEmpleados[5];
+		jefa_Finanzas.estableceIncentivo(55000);
+
+		for (Empleado e : misemEmpleados) {
+			e.subeSueldo(5);
+		}
+		Arrays.sort(misemEmpleados);
+		for (Empleado e : misemEmpleados) {
+			System.out.println("Nombre: " + e.dameNombre() + " Sueldo: " 
+					+ e.dameSueldo() + " Fecha de alta: " + e.dameFechaContrato());
+		}
+	}
+}
+class Empleado implements Comparable {
+	public Empleado(String nom, double sue, int agno, int mes, int dia) {
+		nombre = nom;
+		sueldo = sue;
+		GregorianCalendar calendario = new GregorianCalendar(agno,mes-1,dia);
+		altaContrato = calendario.getTime();	
+		++IdSiguiente;
+		Id = IdSiguiente;
+	}
+	public Empleado(String nom) {
+		this(nom,30000,2000,01,01);
+	}
+	public String dameNombre() {	//GETTER
+		return nombre + " Id: " + Id;
+	}
+	public double dameSueldo() {	//GETTER
+		return sueldo;
+	}
+	public Date dameFechaContrato() {	//GETTER
+		return altaContrato;
+	}
+	public void subeSueldo(double porcentaje) {	//SETTER
+		double aumento = sueldo*porcentaje/100;
+		sueldo += aumento;
+	}
+	public int compareTo(Object miObjeto) {
+		Empleado otroEmpleado = (Empleado) miObjeto;
+		if (this.sueldo < otroEmpleado.sueldo) {
+			return -1;
+		}
+		if (this.sueldo > otroEmpleado.sueldo) {
+			return 1;
+		}
+		return 0;
+	}
+	private String nombre;
+	private double sueldo;
+	private Date altaContrato;
+	private static int IdSiguiente;
+	private int Id;
+}
+class Jefatura extends Empleado { 	//Con final le decimos que otra clase no puede heredar de ella
+	public Jefatura(String nom, double sue, int agno, int mes, int dia) {
+		super(nom, sue, agno, mes, dia);
+	}
+	public void estableceIncentivo(double b) {
+		incentivo = b;
+	}
+	public double dameSueldo() {
+		double sueldoJefe = super.dameSueldo();
+		return sueldoJefe + incentivo;
+	}
+	private double incentivo;
+}
+/*class Director extends Jefatura {
+	public Director(String nom, double sue, int agno, int mes, int dia) {
+		super(nom, sue, agno, mes, dia);
+	}
+}*/
+```
+
+# 50. Interfaces y clases internas. Interfaces II
+
+![](imagenes/61.PNG)
+
+![](imagenes/62.PNG)
+
+![](imagenes/63.PNG)
+
+```java
+package poo;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.GregorianCalendar;
+public class Uso_Empleado {
+	public static void main(String[] args) {
+		Jefatura jefe_RRHH = new Jefatura("Juan", 55000, 2006, 9, 25);
+		jefe_RRHH.estableceIncentivo(2570);
+		Empleado[] misemEmpleados = new Empleado[6];
+		misemEmpleados[0] = new Empleado("Paco Gomez", 85000, 1990, 12, 17);
+		misemEmpleados[1] = new Empleado("Ana Lopez", 95000, 1995, 06, 02);
+		misemEmpleados[2] = new Empleado("Maria Martin", 105000, 2002, 03, 15);
+		misemEmpleados[3] = new Empleado("Antonio Fernandéz");
+		misemEmpleados[4] = jefe_RRHH;	//Polimorfismo en accion. Principio de sustitucion
+		misemEmpleados[5] = new Jefatura("Maria", 95000, 1999, 5, 26);
+		Jefatura jefa_Finanzas = (Jefatura) misemEmpleados[5];
+		jefa_Finanzas.estableceIncentivo(55000);
+		System.out.println(jefa_Finanzas.tomar_decisiones("Dar mas dias de vacaciones a los empleados"));
+		
+		/*Empleado director_comercial = new Jefatura("Sandra",85000,2012,05,05);
+		Comparable ejemplo = new Empleado("Elizabeth",95000,2011,06,07);
+		if (director_comercial instanceof Empleado) {
+			System.out.println("Es de tipo Jefatura");
+		}
+		if (ejemplo instanceof Comparable) {
+			System.out.println("Implementa la interfaz comparable");
+		}
+		*/
+		
+		for (Empleado e : misemEmpleados) {
+			e.subeSueldo(5);
+		}
+		Arrays.sort(misemEmpleados);
+		for (Empleado e : misemEmpleados) {
+			System.out.println("Nombre: " + e.dameNombre() + " Sueldo: " 
+					+ e.dameSueldo() + " Fecha de alta: " + e.dameFechaContrato());
+		}
+	}
+}
+class Empleado implements Comparable {
+	public Empleado(String nom, double sue, int agno, int mes, int dia) {
+		nombre = nom;
+		sueldo = sue;
+		GregorianCalendar calendario = new GregorianCalendar(agno,mes-1,dia);
+		altaContrato = calendario.getTime();	
+		++IdSiguiente;
+		Id = IdSiguiente;
+	}
+	public Empleado(String nom) {
+		this(nom,30000,2000,01,01);
+	}
+	public String dameNombre() {	//GETTER
+		return nombre + " Id: " + Id;
+	}
+	public double dameSueldo() {	//GETTER
+		return sueldo;
+	}
+	public Date dameFechaContrato() {	//GETTER
+		return altaContrato;
+	}
+	public void subeSueldo(double porcentaje) {	//SETTER
+		double aumento = sueldo*porcentaje/100;
+		sueldo += aumento;
+	}
+	public int compareTo(Object miObjeto) {
+		Empleado otroEmpleado = (Empleado) miObjeto;
+		if (this.sueldo < otroEmpleado.sueldo) {
+			return -1;
+		}
+		if (this.sueldo > otroEmpleado.sueldo) {
+			return 1;
+		}
+		return 0;
+	}
+	private String nombre;
+	private double sueldo;
+	private Date altaContrato;
+	private static int IdSiguiente;
+	private int Id;
+}
+class Jefatura extends Empleado implements Jefes { 	//Con final le decimos que otra clase no puede heredar de ella
+	public Jefatura(String nom, double sue, int agno, int mes, int dia) {
+		super(nom, sue, agno, mes, dia);
+	}
+	public String tomar_decisiones(String decision) {
+		return "Un miembro de la direccion ha tomado la decision de: " + decision;
+	}
+	public void estableceIncentivo(double b) {
+		incentivo = b;
+	}
+	public double dameSueldo() {
+		double sueldoJefe = super.dameSueldo();
+		return sueldoJefe + incentivo;
+	}
+	private double incentivo;
+}
+/*class Director extends Jefatura {
+	public Director(String nom, double sue, int agno, int mes, int dia) {
+		super(nom, sue, agno, mes, dia);
+	}
+}*/
+```
+
+```java
+package poo;
+
+public interface Jefes {
+	String tomar_decisiones(String decision);
+}
+```
+
+# 51. Interfaces y clases internas. Interfaces III
+
+```java
+
+```
+
+# 52. Interfaces y clases internas. Interfaces IV
+
+```java
+
+```
+
+# 53. Interfaces y clases internas. Clases Internas I
+
+```java
+
+```
+
+# 54. Interfaces y clases internas. Clases Internas II
+
+```java
+
 ```
 
 
