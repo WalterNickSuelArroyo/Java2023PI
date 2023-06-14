@@ -1938,26 +1938,436 @@ public interface Jefes {
 
 # 51. Interfaces y clases internas. Interfaces III
 
-```java
+![](imagenes/64.PNG)
 
+```java
+package poo;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.GregorianCalendar;
+public class Uso_Empleado {
+	public static void main(String[] args) {
+		Jefatura jefe_RRHH = new Jefatura("Juan", 55000, 2006, 9, 25);
+		jefe_RRHH.estableceIncentivo(2570);
+		Empleado[] misemEmpleados = new Empleado[6];
+		misemEmpleados[0] = new Empleado("Paco Gomez", 85000, 1990, 12, 17);
+		misemEmpleados[1] = new Empleado("Ana Lopez", 95000, 1995, 06, 02);
+		misemEmpleados[2] = new Empleado("Maria Martin", 105000, 2002, 03, 15);
+		misemEmpleados[3] = new Empleado("Antonio Fernandéz");
+		misemEmpleados[4] = jefe_RRHH;	//Polimorfismo en accion. Principio de sustitucion
+		misemEmpleados[5] = new Jefatura("Maria", 95000, 1999, 5, 26);
+		Jefatura jefa_Finanzas = (Jefatura) misemEmpleados[5];
+		jefa_Finanzas.estableceIncentivo(55000);
+		System.out.println(jefa_Finanzas.tomar_decisiones("Dar mas dias de vacaciones a los empleados"));
+		System.out.println("El jefe" + jefa_Finanzas.dameNombre() + " tiene un bonus de " + jefa_Finanzas.establece_bonus(500));
+		System.out.println(misemEmpleados[3].dameNombre() + " tiene un bonus de: " + misemEmpleados[3].establece_bonus(200));
+		
+		for (Empleado e : misemEmpleados) {
+			e.subeSueldo(5);
+		}
+		Arrays.sort(misemEmpleados);
+		for (Empleado e : misemEmpleados) {
+			System.out.println("Nombre: " + e.dameNombre() + " Sueldo: " 
+					+ e.dameSueldo() + " Fecha de alta: " + e.dameFechaContrato());
+		}
+	}
+}
+class Empleado implements Comparable, Trabajadores {
+	public Empleado(String nom, double sue, int agno, int mes, int dia) {
+		nombre = nom;
+		sueldo = sue;
+		GregorianCalendar calendario = new GregorianCalendar(agno,mes-1,dia);
+		altaContrato = calendario.getTime();	
+		++IdSiguiente;
+		Id = IdSiguiente;
+	}
+	public double establece_bonus(double gratificacion) {
+		return Trabajadores.bonus_base+gratificacion;
+	}
+	public Empleado(String nom) {
+		this(nom,30000,2000,01,01);
+	}
+	public String dameNombre() {	//GETTER
+		return nombre + " Id: " + Id;
+	}
+	public double dameSueldo() {	//GETTER
+		return sueldo;
+	}
+	public Date dameFechaContrato() {	//GETTER
+		return altaContrato;
+	}
+	public void subeSueldo(double porcentaje) {	//SETTER
+		double aumento = sueldo*porcentaje/100;
+		sueldo += aumento;
+	}
+	public int compareTo(Object miObjeto) {
+		Empleado otroEmpleado = (Empleado) miObjeto;
+		if (this.sueldo < otroEmpleado.sueldo) {
+			return -1;
+		}
+		if (this.sueldo > otroEmpleado.sueldo) {
+			return 1;
+		}
+		return 0;
+	}
+	private String nombre;
+	private double sueldo;
+	private Date altaContrato;
+	private static int IdSiguiente;
+	private int Id;
+}
+class Jefatura extends Empleado implements Jefes { 	//Con final le decimos que otra clase no puede heredar de ella
+	public Jefatura(String nom, double sue, int agno, int mes, int dia) {
+		super(nom, sue, agno, mes, dia);
+	}
+	public String tomar_decisiones(String decision) {
+		return "Un miembro de la direccion ha tomado la decision de: " + decision;
+	}
+	public double establece_bonus(double gratificacion) {
+		double prima = 2000;
+		return Trabajadores.bonus_base + gratificacion + prima;
+	}
+	public void estableceIncentivo(double b) {
+		incentivo = b;
+	}
+	public double dameSueldo() {
+		double sueldoJefe = super.dameSueldo();
+		return sueldoJefe + incentivo;
+	}
+	private double incentivo;
+}
+```
+
+```java
+package poo;
+
+public interface Jefes extends Trabajadores {
+	String tomar_decisiones(String decision);
+}
+```
+
+```java
+package poo;
+
+public interface Trabajadores {
+	double establece_bonus(double gratificacion);
+	double bonus_base = 1500;
+}
 ```
 
 # 52. Interfaces y clases internas. Interfaces IV
 
 ```java
-
+package poo;
+import java.awt.event.*;
+import java.util.*;
+import javax.swing.Timer;
+import javax.swing.*;
+public class PruebaTemporizador {
+	public static void main(String[] args) {
+		DameLaHora oyente = new DameLaHora();
+		//ActionListener oyente = new DameLaHora();
+		Timer mitemporizador = new Timer (5000, oyente);
+		mitemporizador.start();
+		JOptionPane.showMessageDialog(null, "Pulsa aceptar para detener");
+		System.exit(0);
+	}
+}
+class DameLaHora implements ActionListener {
+	public void actionPerformed(ActionEvent e) {
+		Date ahora = new Date ();
+		System.out.println("Te pono la hora cada 5 seg: " + ahora);
+	}
+}
 ```
 
 # 53. Interfaces y clases internas. Clases Internas I
 
+![](imagenes/65.PNG)
+
+![](imagenes/66.PNG)
+
 ```java
+package poo;
+import javax.swing.*;
+import java.awt.event.*;
+import java.util.*;
+import javax.swing.Timer;
+import java.awt.Toolkit;
+public class PruebaTemporizador2 {
+	public static void main(String[] args) {
+		Reloj mireloj = new Reloj(3000, true);
+		mireloj.enMarcha();
+		JOptionPane.showMessageDialog(null, "Pulsa aceptar para terminar");
+		System.exit(0);
+
+	}
+}
+class Reloj {
+	public Reloj (int intervalo, boolean sonido) {
+		this.intervalo = intervalo;
+		this.sonido = sonido;
+	}
+	public void enMarcha() {
+		ActionListener oyente = new DameLaHora2();
+		Timer mitemporizador = new Timer (intervalo, oyente);
+		mitemporizador.start();
+	}
+	
+	private int intervalo;
+	private boolean sonido;
+	
+	private class DameLaHora2 implements ActionListener {
+		public void actionPerformed (ActionEvent evento) {
+			Date ahora = new Date ();
+			System.out.println("Te pongo la hora cada 3 segundos " + ahora);
+			if (sonido) {
+				Toolkit.getDefaultToolkit().beep();
+			} else {
+
+			}
+		}
+	}
+}
 
 ```
 
 # 54. Interfaces y clases internas. Clases Internas II
 
-```java
+![](imagenes/67.PNG)
 
+```java
+package poo;
+import javax.swing.*;
+import java.awt.event.*;
+import java.util.*;
+import javax.swing.Timer;
+import java.awt.Toolkit;
+public class PruebaTemporizador2 {
+	public static void main(String[] args) {
+		Reloj mireloj = new Reloj();
+		mireloj.enMarcha(3000,true);
+		JOptionPane.showMessageDialog(null, "Pulsa aceptar para terminar");
+		System.exit(0);
+
+	}
+}
+class Reloj {
+	public void enMarcha(int intervalo, final boolean sonido) {
+		class DameLaHora2 implements ActionListener {
+			public void actionPerformed (ActionEvent evento) {
+				Date ahora = new Date ();
+				System.out.println("Te pongo la hora cada 3 segundos " + ahora);
+				if (sonido) {
+					Toolkit.getDefaultToolkit().beep();
+				} else {
+
+				}
+			}
+		}
+		ActionListener oyente = new DameLaHora2();
+		Timer mitemporizador = new Timer (intervalo, oyente);
+		mitemporizador.start();
+	}
+}
+```
+
+# 55. Aplicaciones graficas Swing I
+
+![](imagenes/68.PNG)
+
+![](imagenes/69.PNG)
+
+![](imagenes/70.PNG)
+
+```java
+package graficos;
+import javax.swing.*;
+public class CreandoMarcos {
+
+	public static void main(String[] args) {
+		miMarco marco1 = new miMarco();
+		marco1.setVisible(true);
+		marco1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+}
+class miMarco extends JFrame {
+	public miMarco() {
+		setSize(500,300);
+	}
+}
+```
+
+# 56. Aplicaciones graficas Swing II colocando el frame
+
+![](imagenes/71.PNG)
+
+```java
+package graficos;
+import java.awt.Frame;
+
+import javax.swing.*;
+public class CreandoMarcos {
+
+	public static void main(String[] args) {
+		miMarco marco1 = new miMarco();
+		marco1.setVisible(true);
+		marco1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+}
+class miMarco extends JFrame {
+	public miMarco() {
+		//setSize(500,300);
+		//setLocation(500, 300);
+		setBounds(500, 300, 550, 250);
+		//setResizable(false);
+		//setExtendedState(Frame.MAXIMIZED_BOTH);
+		setTitle("Mi ventana");
+	}
+}
+```
+
+# 57. Aplicaciones graficas Swing III colocando el frame II
+
+![](imagenes/72.PNG)
+
+```java
+package graficos;
+import java.awt.*;
+import java.awt.Toolkit;
+import javax.swing.*;
+
+public class CreandoMarcoCentrado {
+	public static void main(String[] args) {
+		MarcoCentrado mimarco = new MarcoCentrado();
+		mimarco.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		mimarco.setVisible(true);
+	}
+}
+class MarcoCentrado extends JFrame{
+	public MarcoCentrado() {
+		Toolkit mipantalla = Toolkit.getDefaultToolkit();
+		Dimension tamanoPantalla = mipantalla.getScreenSize();
+		int alturaPantalla = tamanoPantalla.height;
+		int anchoPantalla = tamanoPantalla.width;
+		setSize(anchoPantalla/2, alturaPantalla/2);
+		setLocation(anchoPantalla/4, alturaPantalla/4);
+		setTitle("MarcoCentrado");
+		Image miIcono = mipantalla.getImage("src/graficos/icono.png");
+		setIconImage(miIcono);
+	}
+}
+```
+
+# 58. Aplicaciones graficas Swing IV escribiendo en el frame
+
+![](imagenes/73.PNG)
+
+![](imagenes/74.PNG)
+
+```java
+package graficos;
+import javax.swing.*;
+import java.awt.*;
+public class EscribiendoEnMarco {
+
+	public static void main(String[] args) {
+		MarcoConTexto mimarco = new MarcoConTexto();
+		mimarco.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+
+}
+class MarcoConTexto extends JFrame{
+	public MarcoConTexto() {
+		setVisible(true);
+		setSize(600,450);
+		setLocation(400, 200);
+		setTitle("primer texto");
+		Lamina miLamina = new Lamina();
+		add(miLamina);
+	}
+}
+class Lamina extends JPanel{
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		g.drawString("Estamos aprendiendo Swing", 100, 100);
+	}
+}
+```
+
+# 59. Aplicaciones graficas Swing V dibujando en el frame
+
+```java
+package graficos;
+import java.awt.*;
+import javax.swing.*;
+public class PruebaDibujo {
+	public static void main(String[] args) {
+		MarcoConDibujos mimarco = new MarcoConDibujos();
+		mimarco.setVisible(true);;
+		mimarco.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+}
+class MarcoConDibujos extends JFrame {
+	public MarcoConDibujos() {
+		setTitle("prueba de dibujo");
+		setSize(400,400);
+		LaminaConFiguras milamina = new LaminaConFiguras();
+		add(milamina);
+	}
+}
+class LaminaConFiguras extends JPanel {
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		//g.drawRect(50, 50, 200, 200);
+		//g.drawLine(100, 100, 300, 200);
+		g.drawArc(50, 100, 100, 200, 120, 150);
+	}
+}
+```
+
+![](imagenes/75.PNG)
+
+# 60. Aplicaciones graficas Swing VI dibujando en el frame II
+
+```java
+package graficos;
+import java.awt.*;
+import javax.swing.*;
+import java.awt.geom.*;
+public class PruebaDibujo {
+	public static void main(String[] args) {
+		MarcoConDibujos mimarco = new MarcoConDibujos();
+		mimarco.setVisible(true);;
+		mimarco.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+}
+class MarcoConDibujos extends JFrame {
+	public MarcoConDibujos() {
+		setTitle("prueba de dibujo");
+		setSize(400,400);
+		LaminaConFiguras milamina = new LaminaConFiguras();
+		add(milamina);
+	}
+}
+class LaminaConFiguras extends JPanel {
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		Graphics2D g2 = (Graphics2D) g;
+		Rectangle2D rectangulo = new Rectangle2D.Double(100, 100, 200, 150);
+		g2.draw(rectangulo);
+		Ellipse2D elipse = new Ellipse2D.Double();
+		elipse.setFrame(rectangulo);
+		g2.draw(elipse);
+		g2.draw(new Line2D.Double(100,100,300,250));
+		double CentroenX = rectangulo.getCenterX();
+		double CentroenY = rectangulo.getCenterY();
+		double radio = 150;
+		Ellipse2D circulo = new Ellipse2D.Double();
+		circulo.setFrameFromCenter(CentroenX, CentroenY, CentroenX+radio, CentroenY+radio);
+		g2.draw(circulo);
+	}
+}
 ```
 
 
