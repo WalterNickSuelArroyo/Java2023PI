@@ -2370,6 +2370,434 @@ class LaminaConFiguras extends JPanel {
 }
 ```
 
+# 61. Aplicaciones graficas Swing VII Manejando colores
+
+![](imagenes/76.PNG)
+
+```java
+package graficos;
+import java.awt.*;
+import javax.swing.*;
+import java.awt.geom.*;
+public class TrabajandoColores {
+	public static void main(String[] args) {
+		MarcoConColor mimarco = new MarcoConColor();
+		mimarco.setVisible(true);;
+		mimarco.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+}
+class MarcoConColor extends JFrame {
+	public MarcoConColor() {
+		setTitle("Prueba con colores");
+		setSize(400,400);
+		LaminaConColor milamina = new LaminaConColor();
+		add(milamina);
+		//milamina.setBackground(Color.PINK);
+		milamina.setBackground(SystemColor.window);
+	}
+}
+class LaminaConColor extends JPanel {
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		Graphics2D g2 = (Graphics2D) g;
+		Rectangle2D rectangulo = new Rectangle2D.Double(100, 100, 200, 150);
+		g2.setPaint(Color.BLUE);
+		g2.draw(rectangulo);
+		g2.setPaint(Color.RED);
+		g2.fill(rectangulo);
+		Ellipse2D elipse = new Ellipse2D.Double();
+		elipse.setFrame(rectangulo);
+		Color micolor = new Color(125,189,200);
+		g2.setPaint(micolor);
+		//g2.setPaint(new Color(109,172,59).darker());
+		g2.fill(elipse);
+	}
+}
+```
+
+# 62. Aplicaciones graficas Swing VIII Cambiando la letra en el frame
+
+![](imagenes/77.PNG)
+
+```java
+package graficos;
+import java.awt.*;
+import javax.swing.*;
+public class TrabajandoConFuentes {
+	public static void main(String[] args) {
+		MarcoConFuentes mimarco = new MarcoConFuentes();
+		mimarco.setVisible(true);;
+		mimarco.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+}
+class MarcoConFuentes extends JFrame {
+	public MarcoConFuentes() {
+		setTitle("Prueba con Fuentes");
+		setSize(400,400);
+		LaminaConFuentes milamina = new LaminaConFuentes();
+		add(milamina);
+		milamina.setForeground(Color.BLUE);
+	}
+}
+class LaminaConFuentes extends JPanel {
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		Graphics2D g2 = (Graphics2D) g;
+		Font mifuente = new Font("Arial",Font.BOLD,26);
+		g2.setFont(mifuente);
+		//g2.setColor(Color.BLUE);
+		g2.drawString("Juan", 100, 100);
+		g2.setFont(new Font("Arial",Font.ITALIC,24));
+		//g2.setColor(new Color(128,90,50).brighter());
+		g2.drawString("Curso de Java", 100, 200);
+	}
+}
+```
+
+# 63. Aplicaciones graficas Swing IX - Incluyendo imagenes
+
+![](imagenes/78.PNG)
+
+```java
+package graficos;
+import java.awt.*;
+import java.io.File;
+import java.io.IOException;
+
+import javax.swing.*;
+import javax.imageio.*;
+public class PruebaImagenes {
+	public static void main(String[] args) {
+		MarcoImagen mimarco = new MarcoImagen();
+		mimarco.setVisible(true);;
+		mimarco.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+}
+class MarcoImagen extends JFrame {
+	public MarcoImagen() {
+		setTitle("Marco con Imagen");
+		setBounds(750,300,300,200);
+		LaminaConImagen milamina = new LaminaConImagen();
+		add(milamina);
+	}
+}
+class LaminaConImagen extends JPanel {
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		//File miimagen = new File("src/graficos/carro.png");
+		try {
+			//imagen = ImageIO.read(miimagen);
+			imagen = ImageIO.read(new File("src/graficos/carro.png"));
+		} catch (IOException e) {
+			System.out.println("la imagen no se encuentra");
+		}
+		g.drawImage(imagen, 5, 5, null);
+	}
+	private Image imagen;
+}
+```
+
+# 64. Aplicaciones graficas Swing X - Incluyendo imagenes II
+
+```java
+package graficos;
+import java.awt.*;
+import java.io.File;
+import java.io.IOException;
+import java.util.Iterator;
+
+import javax.swing.*;
+import javax.imageio.*;
+public class PruebaImagenes {
+	public static void main(String[] args) {
+		MarcoImagen mimarco = new MarcoImagen();
+		mimarco.setVisible(true);;
+		mimarco.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+}
+class MarcoImagen extends JFrame {
+	public MarcoImagen() {
+		setTitle("Marco con Imagen");
+		setBounds(750,300,300,200);
+		LaminaConImagen milamina = new LaminaConImagen();
+		add(milamina);
+	}
+}
+class LaminaConImagen extends JPanel {
+	public LaminaConImagen() {
+		try {
+			//imagen = ImageIO.read(miimagen);
+			imagen = ImageIO.read(new File("src/graficos/bola.png"));
+		} catch (IOException e) {
+			System.out.println("la imagen no se encuentra");
+		}
+	}
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		//File miimagen = new File("src/graficos/carro.png");
+		
+		int anchuraImagen = imagen.getWidth(this);
+		int alturaImagen = imagen.getHeight(this);
+		g.drawImage(imagen, 0, 0, null);
+		for (int i = 0; i < 300; i++) {
+			for (int j = 0; j < 200; j++) {
+				if (i + j > 0) {
+					g.copyArea(0, 0, anchuraImagen, alturaImagen, anchuraImagen*i, alturaImagen*j);
+				}
+			}
+		}
+	}
+	private Image imagen;
+}
+```
+
+# 65. Eventos I
+
+![](imagenes/79.PNG)
+
+![](imagenes/80.PNG)
+
+![](imagenes/81.PNG)
+
+# 66. Eventos II
+
+```java
+package graficos;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.*;
+public class PruebaEventos {
+	public static void main(String[] args) {
+		MarcoBotones mimarco = new MarcoBotones();
+		mimarco.setVisible(true);;
+		mimarco.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+}
+class MarcoBotones extends JFrame {
+	public MarcoBotones() {
+		setTitle("Marco con Imagen");
+		setBounds(750,300,500,300);
+		LaminaBotones milamina = new LaminaBotones();
+		add(milamina);
+	}
+}
+class LaminaBotones extends JPanel implements ActionListener {
+	JButton botonAzul = new JButton("Azul");
+	JButton botonAmarillo = new JButton("Amarillo");
+	JButton botonRojo = new JButton("Rojo");
+	public LaminaBotones() {
+		add(botonAzul);
+		add(botonAmarillo);
+		add(botonRojo);
+		botonAzul.addActionListener(this);
+		botonAmarillo.addActionListener(this);
+		botonRojo.addActionListener(this);
+	}
+	public void actionPerformed(ActionEvent e) {
+		Object botonPulsado = e.getSource();
+		if (botonPulsado == botonAzul) {
+			setBackground(Color.BLUE);
+		} else if (botonPulsado == botonAmarillo) {
+			setBackground(Color.YELLOW);
+		} else {
+			setBackground(Color.RED);
+		}
+	}
+}
+```
+
+# 67. Eventos III
+
+```java
+package graficos;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.*;
+public class PruebaEventos {
+	public static void main(String[] args) {
+		MarcoBotones mimarco = new MarcoBotones();
+		mimarco.setVisible(true);;
+		mimarco.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+}
+class MarcoBotones extends JFrame {
+	public MarcoBotones() {
+		setTitle("Marco con Imagen");
+		setBounds(750,300,500,300);
+		LaminaBotones milamina = new LaminaBotones();
+		add(milamina);
+	}
+}
+class LaminaBotones extends JPanel {
+	JButton botonAzul = new JButton("Azul");
+	JButton botonAmarillo = new JButton("Amarillo");
+	JButton botonRojo = new JButton("Rojo");
+	public LaminaBotones() {
+		add(botonAzul);
+		add(botonAmarillo);
+		add(botonRojo);
+		ColorFondo Amarillo = new ColorFondo(Color.YELLOW);
+		ColorFondo Azul = new ColorFondo(Color.BLUE);
+		ColorFondo Rojo = new ColorFondo(Color.RED);
+		botonAzul.addActionListener(Azul);
+		botonAmarillo.addActionListener(Amarillo);
+		botonRojo.addActionListener(Rojo);
+	}
+	private class ColorFondo implements ActionListener{
+		public ColorFondo(Color c) {
+			colorDeFondo = c;
+		}
+		public void actionPerformed (ActionEvent e) {
+			setBackground(colorDeFondo);
+		}
+		private Color colorDeFondo;
+	}
+}
+```
+
+# 68. Eventos IV - Eventos de ventana I
+
+![](imagenes/82.PNG)
+
+```java
+package graficos;
+import java.awt.event.*;
+import javax.swing.*;
+public class Eventos_Ventana {
+	public static void main(String[] args) {
+		MarcoVentana mimarco = new MarcoVentana();
+		mimarco.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		MarcoVentana mimarco2 = new MarcoVentana();
+		mimarco2.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		mimarco.setTitle("Ventana 1");
+		mimarco2.setTitle("Ventana 2");
+		mimarco.setBounds(300,300,500,350);
+		mimarco2.setBounds(900,300,500,350);
+	}
+}
+class MarcoVentana extends JFrame {
+	public MarcoVentana() {
+		//setTitle("Respondiendo");
+		//setBounds(750,300,500,350);
+		setVisible(true);
+		M_Ventana oyente_ventana = new M_Ventana();
+		addWindowListener(oyente_ventana);
+	}
+}
+class M_Ventana implements WindowListener{
+	@Override
+	public void windowOpened(WindowEvent e) {
+		System.out.println("Ventana abierta");
+	}
+	@Override
+	public void windowClosing(WindowEvent e) {
+		System.out.println("Cerrando ventana");
+	}
+	@Override
+	public void windowClosed(WindowEvent e) {
+		System.out.println("La ventana ha sido cerrada");
+	}
+	@Override
+	public void windowIconified(WindowEvent e) {
+		System.out.println("Ventana minimizada");
+	}
+	@Override
+	public void windowDeiconified(WindowEvent e) {
+		System.out.println("Ventana restaurada");
+	}
+	@Override
+	public void windowActivated(WindowEvent e) {
+		System.out.println("Ventana activada");
+	}
+	@Override
+	public void windowDeactivated(WindowEvent e) {
+		System.out.println("Ventana desactivada");
+	}
+}
+```
+
+# 69. Eventos V - Eventos de ventana II - Clases adaptadoras
+
+![](imagenes/83.PNG)
+
+```java
+package graficos;
+import java.awt.event.*;
+import javax.swing.*;
+public class Eventos_Ventana {
+	public static void main(String[] args) {
+		MarcoVentana mimarco = new MarcoVentana();
+		mimarco.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		MarcoVentana mimarco2 = new MarcoVentana();
+		mimarco2.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		mimarco.setTitle("Ventana 1");
+		mimarco2.setTitle("Ventana 2");
+		mimarco.setBounds(300,300,500,350);
+		mimarco2.setBounds(900,300,500,350);
+	}
+}
+class MarcoVentana extends JFrame {
+	public MarcoVentana() {
+		//setTitle("Respondiendo");
+		//setBounds(750,300,500,350);
+		setVisible(true);
+		//M_Ventana oyente_ventana = new M_Ventana();
+		//addWindowListener(oyente_ventana);
+		addWindowListener(new M_Ventana());
+	}
+}
+class M_Ventana extends WindowAdapter{
+	public void windowIconified(WindowEvent e) {
+		System.out.println("Ventana minimizada");
+	}
+}
+```
+
+# 70. Eventos VI - Evento de ventana III - Controlando estado ventana
+
+![](imagenes/84.PNG)
+
+![](imagenes/85.PNG)
+
+```java
+package graficos;
+import java.awt.event.*;
+import javax.swing.*;
+import java.awt.Frame;
+public class CambioEstado {
+	public static void main(String[] args) {
+		MarcoEstado mimarco = new MarcoEstado();
+		mimarco.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+}
+class MarcoEstado extends JFrame {
+	public MarcoEstado() {
+		setVisible(true);
+		setBounds(300,300,500,350);
+		CambiaEstado nuevo_estado = new CambiaEstado();
+		addWindowStateListener(nuevo_estado);
+	}
+}
+class CambiaEstado implements WindowStateListener {
+	@Override
+	public void windowStateChanged(WindowEvent e) {
+		//System.out.println("La ventana ha cambiado de estado");
+		//System.out.println(e.getNewState());
+		if (e.getNewState() == Frame.MAXIMIZED_BOTH) {
+			System.out.println("La ventana esta a pantalla completa");
+		}else if (e.getNewState() == Frame.NORMAL) {
+			System.out.println("La ventana esta normal");
+		}else if (e.getNewState() == Frame.ICONIFIED) {
+			System.out.println("La ventana esta minimizada");
+		}
+	}
+}
+```
+
 
 
 
