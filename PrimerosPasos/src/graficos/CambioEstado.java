@@ -17,7 +17,6 @@ class MarcoEstado extends JFrame {
 	}
 }
 class CambiaEstado implements WindowStateListener {
-
 	@Override
 	public void windowStateChanged(WindowEvent e) {
 		//System.out.println("La ventana ha cambiado de estado");
@@ -30,5 +29,4 @@ class CambiaEstado implements WindowStateListener {
 			System.out.println("La ventana esta minimizada");
 		}
 	}
-	
 }

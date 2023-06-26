@@ -2798,6 +2798,341 @@ class CambiaEstado implements WindowStateListener {
 }
 ```
 
+# 71. Eventods VII - Eventos de teclado 1
+
+![](imagenes/86.PNG)
+
+```java
+package graficos;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+public class EventosTeclado {
+	public static void main(String[] args) {
+		MarcoConTeclas mimarco = new MarcoConTeclas();
+		mimarco.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
+	}
+}
+class MarcoConTeclas extends JFrame {
+	public MarcoConTeclas() {
+		setVisible(true);
+		setBounds(700,300,600,450);
+		EventoDeTeclado tecla = new EventoDeTeclado();
+		addKeyListener(tecla);
+	}
+}
+class EventoDeTeclado implements KeyListener {
+	@Override
+	public void keyTyped(KeyEvent e) {
+		char letra = e.getKeyChar();
+		System.out.println(letra);
+	}
+	@Override
+	public void keyPressed(KeyEvent e) {
+		//int codigo = e.getKeyCode();
+		//System.out.println(codigo);
+	}
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+	}
+}
+```
+
+#  72. Eventos VIII - Eventos de ratón I
+
+![](imagenes/87.PNG)
+
+![](imagenes/88.PNG)
+
+```java
+package graficos;
+import java.awt.event.*;
+import javax.swing.JFrame;
+public class Eventos_Raton {
+	public static void main(String[] args) {
+		MarcoRaton mimarco = new MarcoRaton();
+		mimarco.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
+	}
+}
+class MarcoRaton extends JFrame {
+	public MarcoRaton() {
+		setVisible(true);
+		setBounds(700,300,600,450);
+		EventosDeRaton raton = new EventosDeRaton();
+		addMouseListener(raton);
+	}
+}
+class EventosDeRaton extends MouseAdapter {
+	public void mouseClicked(MouseEvent e) {
+		System.out.println("Ha hecho click");
+	}
+	/*@Override
+	public void mouseClicked(MouseEvent e) {
+		System.out.println("Ha hecho click");
+	}
+	@Override
+	public void mousePressed(MouseEvent e) {
+		System.out.println("Acabas de presionar");
+	}
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		System.out.println("Acabas de levantar");
+	}
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		System.out.println("Acabas de entrar");
+	}
+	@Override
+	public void mouseExited(MouseEvent e) {
+		System.out.println("Acabas de salir");
+	}*/
+}
+```
+
+# 73. Eventos IX - Eventos de raton II
+
+```java
+package graficos;
+import java.awt.event.*;
+import javax.swing.JFrame;
+public class Eventos_Raton {
+	public static void main(String[] args) {
+		MarcoRaton mimarco = new MarcoRaton();
+		mimarco.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
+	}
+}
+class MarcoRaton extends JFrame {
+	public MarcoRaton() {
+		setVisible(true);
+		setBounds(700,300,600,450);
+		EventosDeRaton raton = new EventosDeRaton();
+		//addMouseListener(raton);
+		addMouseMotionListener(raton);
+	}
+}
+/*class EventosDeRaton extends MouseAdapter {
+	/*public void mouseClicked(MouseEvent e) {
+		//System.out.println("Coordenada X: " + e.getX() + " Coordenada Y: " + e.getY());
+		System.out.println(e.getClickCount());
+	}
+	public void mousePressed(MouseEvent e) {
+		//System.out.println(e.getModifiersEx());
+		if (e.getModifiersEx() == MouseEvent.BUTTON1_DOWN_MASK) {
+			System.out.println("Has pulsado el boton izquierdo");
+		}else if(e.getModifiersEx() == MouseEvent.BUTTON2_DOWN_MASK) {
+			System.out.println("Has pulsado la rueda del raton");
+		}else if (e.getModifiersEx() == MouseEvent.BUTTON3_DOWN_MASK) {
+			System.out.println("Has pulsado el boton derecho");
+		}
+	}
+}*/
+class EventosDeRaton implements MouseMotionListener{
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		System.out.println("Estas arrastrando");
+	}
+	@Override
+	public void mouseMoved(MouseEvent e) {
+		System.out.println("Estas moviendo");
+	}
+	
+}
+```
+
+# 74. Eventos X - Eventos de foco
+
+![](imagenes/89.PNG)
+
+![](imagenes/90.PNG)
+
+```java
+package graficos;
+import java.awt.*;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import javax.swing.*;
+public class FocoEvento {
+
+	public static void main(String[] args) {
+		MarcoFoco mimarco = new MarcoFoco();
+		mimarco.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+}
+class MarcoFoco extends JFrame {
+	public MarcoFoco() {
+		setVisible(true);
+		setBounds(300,300,600,450);
+		add(new LaminaFoco());
+	}
+}
+class LaminaFoco extends JPanel{
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		setLayout(null);
+		cuadro1 = new JTextField();
+		cuadro2 = new JTextField();
+		cuadro1.setBounds(120, 10, 150, 20);
+		cuadro2.setBounds(120, 50, 150, 20);
+		add(cuadro1);
+		add(cuadro2);
+		LanzaFocos elFoco = new LanzaFocos();
+		cuadro1.addFocusListener(elFoco);
+	}
+	private class LanzaFocos implements FocusListener{
+		@Override
+		public void focusGained(FocusEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+		@Override
+		public void focusLost(FocusEvent e) {
+			System.out.println("He perdido el foco");
+		}
+	}
+	JTextField cuadro1;
+	JTextField cuadro2;
+}
+```
+
+# 75. Eventos XI - Eventos de foco II
+
+```java
+package graficos;
+import java.awt.*;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import javax.swing.*;
+public class FocoEvento {
+
+	public static void main(String[] args) {
+		MarcoFoco mimarco = new MarcoFoco();
+		mimarco.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+}
+class MarcoFoco extends JFrame {
+	public MarcoFoco() {
+		setVisible(true);
+		setBounds(300,300,600,450);
+		add(new LaminaFoco());
+	}
+}
+class LaminaFoco extends JPanel{
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		setLayout(null);
+		cuadro1 = new JTextField();
+		cuadro2 = new JTextField();
+		cuadro1.setBounds(120, 10, 150, 20);
+		cuadro2.setBounds(120, 50, 150, 20);
+		add(cuadro1);
+		add(cuadro2);
+		LanzaFocos elFoco = new LanzaFocos();
+		cuadro1.addFocusListener(elFoco);
+	}
+	private class LanzaFocos implements FocusListener{
+		@Override
+		public void focusGained(FocusEvent e) {
+			// TODO Auto-generated method stub
+		}
+		@Override
+		public void focusLost(FocusEvent e) {
+			String email = cuadro1.getText();
+			boolean comprobacion = false;
+			for (int i = 0; i < email.length(); i++) {
+				if (email.charAt(i) == '@') {
+					comprobacion = true;
+				}
+			}
+			if (comprobacion) {
+				System.out.println("Correcto");
+			}else {
+				System.out.println("Incorrecto");
+			}
+		}
+	}
+	JTextField cuadro1;
+	JTextField cuadro2;
+}
+```
+
+```java
+package graficos;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowFocusListener;
+
+import javax.swing.JFrame;
+
+public class FocoVentana extends JFrame implements WindowFocusListener {
+
+	public static void main(String[] args) {
+		FocoVentana miv = new FocoVentana();
+		miv.iniciar();
+	}
+	public void iniciar() {
+		marco1 = new FocoVentana();
+		marco2 = new FocoVentana();
+		marco1.setVisible(true);
+		marco2.setVisible(true);
+		marco1.setBounds(300,100,600,350);
+		marco2.setBounds(1200, 100, 600, 350);
+		marco1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		marco2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		marco1.addWindowFocusListener(this);
+		marco2.addWindowFocusListener(this);
+	}
+	@Override
+	public void windowGainedFocus(WindowEvent e) {
+		if (e.getSource() == marco1) {
+			marco1.setTitle("Tengo el foco!!");
+		}else {
+			marco2.setTitle("Tengo el foco!!");
+		}
+	}
+	@Override
+	public void windowLostFocus(WindowEvent e) {
+		if (e.getSource() == marco1) {
+			marco1.setTitle("");
+		}else {
+			marco2.setTitle("");
+		}
+	}
+	FocoVentana marco1;
+	FocoVentana marco2;
+}
+```
+
+# 76. Eventos XII - Multiples fuentes I
+
+```java
+
+```
+
+# 77. Eventos XIII - Multiples fuentes II
+
+```java
+
+```
+
+# 78. Eventos XIV - Multiples fuentes III
+
+```java
+
+```
+
+# 79. Eventos XV - Multiples fuentes IV
+
+```java
+
+```
+
+# 80. Eventos XVI - Multiples oyentes
+
+```java
+
+```
 
 
 
