@@ -3106,32 +3106,159 @@ public class FocoVentana extends JFrame implements WindowFocusListener {
 
 # 76. Eventos XII - Multiples fuentes I
 
-```java
-
-```
-
 # 77. Eventos XIII - Multiples fuentes II
-
-```java
-
-```
 
 # 78. Eventos XIV - Multiples fuentes III
 
-```java
-
-```
-
 # 79. Eventos XV - Multiples fuentes IV
 
-```java
+![](imagenes/91.PNG)
 
+![](imagenes/92.PNG)
+
+![](imagenes/93.PNG)
+
+![](imagenes/94.PNG)
+
+![](imagenes/95.PNG)
+
+![](imagenes/96.PNG)
+
+![](imagenes/97.PNG)
+
+![](imagenes/98.PNG)
+
+```java
+package graficos;
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.ActionMap;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.InputMap;
+import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.KeyStroke;
+public class PruebaAcciones {
+	public static void main(String[] args) {
+		MarcoAccion marco = new MarcoAccion();
+		marco.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		marco.setVisible(true);
+	}
+}
+class MarcoAccion extends JFrame {
+	public MarcoAccion() {
+		setTitle("Prueba Acciones");
+		setBounds(600,350,600,300);
+		PanelAccion lamina = new PanelAccion();
+		add(lamina);
+	}
+}
+class PanelAccion extends JPanel {
+	public PanelAccion() {
+		/*JButton botonAmarillo = new JButton("Amarillo");
+		JButton botonAzul = new JButton("Azul");
+		JButton botonRojo = new JButton("Rojo");
+		add(botonAmarillo);
+		add(botonAzul);
+		add(botonRojo);*/
+		AccionColor accionAmarillo = new AccionColor("Amarillo", new ImageIcon("src/graficos/bola_amarilla.png"), Color.YELLOW);
+		AccionColor accionAzul = new AccionColor("Azul", new ImageIcon("src/graficos/bola_azul.png"), Color.BLUE);
+		AccionColor accionRojo = new AccionColor("Rojo", new ImageIcon("src/graficos/bola_roja.png"), Color.RED);
+		add(new JButton(accionAmarillo));
+		add(new JButton(accionAzul));
+		add(new JButton(accionRojo));
+		InputMap mapaEntrada = getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+		//KeyStroke teclaAmarillo = KeyStroke.getKeyStroke("ctrl A");
+		mapaEntrada.put(KeyStroke.getKeyStroke("ctrl A"), "fondo_amarillo");
+		mapaEntrada.put(KeyStroke.getKeyStroke("ctrl B"), "fondo_azul");
+		mapaEntrada.put(KeyStroke.getKeyStroke("ctrl R"), "fondo_rojo");
+		ActionMap mapaAccion = getActionMap();
+		mapaAccion.put("fondo_amarillo", accionAmarillo);
+		mapaAccion.put("fondo_azul", accionAzul);
+		mapaAccion.put("fondo_rojo", accionRojo);
+	}
+	private class AccionColor extends AbstractAction {
+		public AccionColor(String nombre, Icon icono, Color color_boton) {
+			putValue(Action.NAME, nombre);
+			putValue(Action.SMALL_ICON, icono);
+			putValue(Action.SHORT_DESCRIPTION, "Poner la lamina de color " + nombre);
+			putValue("color_de_fondo", color_boton);
+		}
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			Color c = (Color)getValue("color_de_fondo");
+			setBackground(c);
+			System.out.println("Nombre: " + getValue(Action.NAME) + " Descripcion: " + getValue(Action.SHORT_DESCRIPTION));
+		}
+	}
+}
 ```
 
 # 80. Eventos XVI - Multiples oyentes
 
-```java
+![](imagenes/99.PNG)
 
+```java
+package graficos;
+import java.awt.Event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.*;
+public class Varios_oyentes {
+	public static void main(String[] args) {
+		Marco_Principal mimarco = new Marco_Principal();
+		mimarco.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		mimarco.setVisible(true);
+	}
+}
+class Marco_Principal extends JFrame {
+	public Marco_Principal() {
+		setTitle("Prueba Varios");
+		setBounds(1300,100,300,200);
+		Lamina_Principal lamina = new Lamina_Principal();
+		add(lamina);
+	}
+}
+class Lamina_Principal extends JPanel {
+	public Lamina_Principal() {
+		JButton boton_nuevo = new JButton("Nuevo");
+		add(boton_nuevo);
+		boton_cerrar = new JButton("Cerrar todo");
+		add(boton_cerrar);
+		OyenteNuevo miOyente = new OyenteNuevo();
+		boton_nuevo.addActionListener(miOyente);
+	}
+	private class OyenteNuevo implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			Marco_Emergente marco = new Marco_Emergente(boton_cerrar);
+			marco.setVisible(true);
+		}
+	}
+	JButton boton_cerrar;
+}
+class Marco_Emergente extends JFrame{
+	public Marco_Emergente(JButton boton_de_principal) {
+		contador++;
+		setTitle("Ventana " + contador);
+		setBounds(40*contador,40*contador,300,150);
+		CierraTodos oyenteCerrar = new CierraTodos();
+		boton_de_principal.addActionListener(oyenteCerrar);
+	}
+	private class CierraTodos implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			dispose();	
+		}
+	}
+	private static int contador = 0;
+}
 ```
 
 
